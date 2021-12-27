@@ -1,0 +1,16 @@
+#cloud-config
+
+packages:
+  - git
+
+runcmd:
+  - [ cd, /root ]
+  - [ git, clone, 'https://github.com/strandedathome/rolls-blockchain.git' ]
+  - [ cd, 'rolls-blockchain' ]
+  - [ bash, 'install.sh' ]
+  - [ '.', './activate' ]
+  - [ rolls, init ]
+  - [ wget, 'https://downloads.chiaforksblockchain.com/download-file/b0b9b5b3c223e83b494e6f01e14736a6/blockchain_v1_mainnet.sqlite' ]
+  - [ mkdir, -p, /root/.rolls/mainnet/db/ ]
+  - [ mv, blockchain_v1_mainnet.sqlite, '/root/.rolls/mainnet/db/' ]
+  - [ rolls, start, node, -r ]
